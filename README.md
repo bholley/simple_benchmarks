@@ -12,3 +12,8 @@ test large_if_else_block   ... bench:           1 ns/iter (+/- 0)
 test large_switch          ... bench:           1 ns/iter (+/- 0)
 test virtual_call          ... bench:           4 ns/iter (+/- 0)
 ```
+
+Note that |bench| seems to round up. I have not been able to add enough cases to
+the switch and if/else to reach 2ns, so don't assume that the current (large)
+number of cases are exactly four times cheaper than a virtual call (they are
+likely much cheaper than that).
