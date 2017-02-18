@@ -1,0 +1,6 @@
+[package]
+name = "simple_benchmarks"
+version = "0.1.0"
+authors = ["Bobby Holley <bobbyholley@gmail.com>"]
+
+[dependencies]
