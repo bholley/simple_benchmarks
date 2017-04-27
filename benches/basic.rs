@@ -1,7 +1,10 @@
 #![feature(test)]
 
+extern crate fnv;
 extern crate test;
 
+use fnv::FnvHashMap;
+use std::collections::HashMap;
 use std::sync::atomic::{AtomicUsize, Ordering};
 use std::sync::Arc;
 use std::mem;
@@ -16,6 +19,20 @@ fn atomic_fetch_add(b: &mut Bencher) {
     let a = AtomicUsize::new(5);
     b.iter(|| a.fetch_add(1, Ordering::Acquire));
     black_box(a);
+}
+
+#[bench]
+fn fnv_hashmap_lookup(b: &mut Bencher) {
+    let hash: FnvHashMap<usize, usize> = Default::default();
+    let mut contains = false;
+    b.iter(|| contains |= hash.contains_key(&black_box(42)));
+}
+
+#[bench]
+fn std_hashmap_lookup(b: &mut Bencher) {
+    let hash: HashMap<usize, usize> = Default::default();
+    let mut contains = false;
+    b.iter(|| contains |= hash.contains_key(&black_box(42)));
 }
 
 #[bench]
