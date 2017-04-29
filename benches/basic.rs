@@ -1,8 +1,10 @@
 #![feature(test)]
 
 extern crate fnv;
+extern crate simple_benchmarks;
 extern crate test;
 
+use simple_benchmarks::chunkvec::ChunkVec;
 use fnv::FnvHashMap;
 use std::collections::HashMap;
 use std::sync::atomic::{AtomicUsize, Ordering};
@@ -33,6 +35,18 @@ fn std_hashmap_lookup(b: &mut Bencher) {
     let hash: HashMap<usize, usize> = Default::default();
     let mut contains = false;
     b.iter(|| contains |= hash.contains_key(&black_box(42)));
+}
+
+#[bench]
+fn vec_append(b: &mut Bencher) {
+    let mut v: Vec<usize> = Default::default();
+    b.iter(|| v.push(black_box(2)));
+}
+
+#[bench]
+fn chunkvec_append(b: &mut Bencher) {
+    let mut v: ChunkVec<usize> = Default::default();
+    b.iter(|| v.push(black_box(2)));
 }
 
 #[bench]

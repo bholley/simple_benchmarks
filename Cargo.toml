@@ -5,3 +5,4 @@ authors = ["Bobby Holley <bobbyholley@gmail.com>"]
 
 [dependencies]
 fnv = "1.0"
+smallvec = "0.3"
